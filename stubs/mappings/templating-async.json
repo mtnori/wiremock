@@ -1,0 +1,22 @@
+{
+  "request": {
+    "urlPath": "/templating",
+    "method": "POST"
+  },
+  "response": {
+    "status": 200
+  },
+  "postServeActions": [
+    {
+      "name": "webhook",
+      "parameters": {
+        "method": "POST",
+        "url": "http://my-target-host/callback",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{ \"message\": \"success\", \"transactionId\": \"{{jsonPath originalRequest.body '$.transactionId'}}\" }"
+      }
+    }
+  ]
+}

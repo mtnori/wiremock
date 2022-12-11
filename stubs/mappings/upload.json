@@ -1,0 +1,38 @@
+{
+  "request": {
+    "urlPath": "/upload",
+    "method": "POST",
+    "multipartPatterns": [
+      {
+        "matchingType": "ANY",
+        "headers": {
+          "Content-Disposition": {
+            "contains": "name=\"file\""
+          },
+          "Content-Type": {
+            "contains": "application/octet-stream"
+          }
+        }
+      },
+      {
+        "matchingType": "ANY",
+        "headers": {
+          "Content-Disposition": {
+            "contains": "name=\"jsonString\""
+          },
+          "Content-Type": {
+            "contains": "application/json"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{ \"parameter\": \"${json-unit.any-number}\" }"
+          }
+        ]
+      }
+    ]
+  },
+  "response": {
+    "status": 200
+  }
+}
